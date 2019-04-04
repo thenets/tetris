@@ -30,40 +30,40 @@ std::vector<std::vector<std::string>> TetrominoShapes = {
 			"xx--xx----------",
 			"xx--xx----------"},
 
-				// J
-				std::vector<std::string> {
-						"-x---x---x--xx--",
-						"x---xxxx--------",
-						"xx--x---x---x---",
-						"xxxx---x--------"},
+	// J
+	std::vector<std::string> {
+			"-x---x---x--xx--",
+			"x---xxxx--------",
+			"xx--x---x---x---",
+			"xxxx---x--------"},
 
-				// L
-				std::vector<std::string> {
-						"x---x---x---xx--",
-						"xxxxx-----------",
-						"xx---x---x---x--",
-						"---xxxxx--------"},
+	// L
+	std::vector<std::string> {
+			"x---x---x---xx--",
+			"xxxxx-----------",
+			"xx---x---x---x--",
+			"---xxxxx--------"},
 
-							// S
-							std::vector<std::string> {
-									"-xx-xx----------",
-									"x---xx---x------",
-									"-xx-xx----------",
-									"x---xx---x------"},
+	// S
+	std::vector<std::string> {
+			"-xx-xx----------",
+			"x---xx---x------",
+			"-xx-xx----------",
+			"x---xx---x------"},
 
-							// Z
-							std::vector<std::string> {
-									"xx---xx---------",
-									"-x--xx--x-------",
-									"xx---xx---------",
-									"-x--xx--x-------"},
+	// Z
+	std::vector<std::string> {
+			"xx---xx---------",
+			"-x--xx--x-------",
+			"xx---xx---------",
+			"-x--xx--x-------"},
 
-										// T
-										std::vector<std::string> {
-												"xxx--x----------",
-												"-x--xx---x------",
-												"-x--xxx---------",
-												"x---xx--x-------"}
+	// T
+	std::vector<std::string> {
+			"xxx--x----------",
+			"-x--xx---x------",
+			"-x--xxx---------",
+			"x---xx--x-------"}
 };
 
 struct Tetromino {
@@ -149,6 +149,48 @@ public:
 			tetromino->y--;
 			AddTetrominoToBoard();
 		}
+
+		// Check if one or more lines are completed
+		CheckFilledLines();
+
+	}
+
+	void CheckFilledLines() {
+		int numberOfPoints = 0;
+
+		for (int l=0; l < b_high; l++) {
+			int blocksFound = 0;
+			for (int c=0; c < b_wide; c++) {
+				if (board[(l * b_wide) + c] != ' ') {
+					blocksFound++;
+				}
+			}
+
+			// If line is completely filled
+			if (blocksFound == b_wide) {
+				numberOfPoints++;
+
+				DeleteLineFromBoard(l);
+			}
+		}
+	}
+
+	void DeleteLineFromBoard(int lineToDelete) {
+		// Move lines down
+		if (lineToDelete > 0) {
+			for (int l = lineToDelete; l != 0; l--) {
+				for (int c = 0; c < b_wide; c++) {
+					int from = ((l - 1) * b_wide) + c;
+					int to = (l * b_wide) + c;
+ 					board[to] = board[from];
+				}
+			}
+		}
+
+		// Clean first line
+		for (int c = 0; c < b_wide; c++)
+			board[c] = ' ';
+
 
 	}
 
@@ -260,9 +302,6 @@ public:
 
 };
 
-
-
-
 // -----------------------------------------------------------------
 // Screen
 // -----------------------------------------------------------------
@@ -344,7 +383,7 @@ public:
 		}
 
 		// Add gameboard to the screen
-		wchar_t boardBg = '.';
+		wchar_t boardBg = '|';
 		for (int i = 0; i < screenTotalSize - 1; i++) {
 			int screenLine = i / screenWide;
 			int screenColunm = i - screenLine * screenWide;
@@ -549,7 +588,7 @@ int main() {
 		screen.UpdateBoard();
 
 		// Pause
-		std::this_thread::sleep_for(std::chrono::milliseconds(120));
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
 	}
 
 	// Finished
