@@ -378,6 +378,16 @@ public:
 			return;
 		start = std::chrono::high_resolution_clock::now();
 
+		// Update screen size if was resized
+		CONSOLE_SCREEN_BUFFER_INFO csbi;
+		GetConsoleScreenBufferInfo(hScreenGame, &csbi);
+		int newWide = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+		if (newWide != screenWide) {
+			screenWide = newWide;
+			overlay = new wchar_t[screenWide * screenHigh];
+			screen = new wchar_t[screenWide * screenHigh];
+		}
+		
 		// Screen vars
 		DWORD dwBytesWritten = 0;
 		int screenTotalSize = screenWide * screenHigh;
