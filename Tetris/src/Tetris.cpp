@@ -131,6 +131,14 @@ public:
 	}
 
 	void UpdateTetrominoState() {
+		// Update if elapse > 200 ms
+		static auto start = std::chrono::high_resolution_clock::now();
+		auto finish = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double> elapsed = finish - start;
+		if (elapsed.count() < 0.2)
+			return;
+		start = std::chrono::high_resolution_clock::now();
+
 		// Reset state if not current activate
 		if (!tetromino->active) {
 			tetromino->active = 1;
@@ -362,8 +370,16 @@ public:
 
 	// @UpdateBoard : Update current board state and with overlays
 	void UpdateBoard() {
-		DWORD dwBytesWritten = 0;
+		// Update if elapse > 0.032 ms (equal to 30 fps)
+		static auto start = std::chrono::high_resolution_clock::now();
+		auto finish = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double> elapsed = finish - start;
+		if (elapsed.count() < 0.032)
+			return;
+		start = std::chrono::high_resolution_clock::now();
 
+		// Screen vars
+		DWORD dwBytesWritten = 0;
 		int screenTotalSize = screenWide * screenHigh;
 
 		// Clean screen and overlay buffer
@@ -466,6 +482,14 @@ public:
 	}
 
 	void WatchInputs() {
+		// Update if elapse > 0.032 ms (equal to 30 fps)
+		static auto start = std::chrono::high_resolution_clock::now();
+		auto finish = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double> elapsed = finish - start;
+		if (elapsed.count() < 0.120)
+			return;
+		start = std::chrono::high_resolution_clock::now();
+
 		if (GetAsyncKeyState(VK_LEFT))
 			AddInput('l');
 
@@ -571,10 +595,22 @@ int main() {
 	Input input(&gameState, &screen);
 	screen.Log("Game first state started.");
 
+
+
+	// Record start time
+	DEBUG(" ");
+	auto start = std::chrono::high_resolution_clock::now();
+	std::this_thread::sleep_for(std::chrono::milliseconds(200));
+	auto finish = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> elapsed = finish - start;
+	if (elapsed.count() > 0.2) { DEBUG("Cafe"); }
+
+
 	// Main gameloop
 	screen.Log("Start gameloop.");
 	gameState.DebugBoard();
 	screen.EnableGameScreen();
+
 
 	while (1) {
 		// Get inputs
@@ -588,7 +624,7 @@ int main() {
 		screen.UpdateBoard();
 
 		// Pause
-		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+		std::this_thread::sleep_for(std::chrono::milliseconds(2));
 	}
 
 	// Finished
