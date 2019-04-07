@@ -135,7 +135,7 @@ public:
 		static auto start = std::chrono::high_resolution_clock::now();
 		auto finish = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> elapsed = finish - start;
-		if (elapsed.count() < 0.2)
+		if (elapsed.count() < 0.15)
 			return;
 		start = std::chrono::high_resolution_clock::now();
 
@@ -374,7 +374,7 @@ public:
 		static auto start = std::chrono::high_resolution_clock::now();
 		auto finish = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> elapsed = finish - start;
-		if (elapsed.count() < 0.032)
+		if (elapsed.count() < 0.016)
 			return;
 		start = std::chrono::high_resolution_clock::now();
 
@@ -384,8 +384,8 @@ public:
 		int newWide = csbi.srWindow.Right - csbi.srWindow.Left + 1;
 		if (newWide != screenWide) {
 			screenWide = newWide;
-			overlay = new wchar_t[screenWide * screenHigh];
-			screen = new wchar_t[screenWide * screenHigh];
+			overlay = new wchar_t[(screenWide * screenHigh)];
+			screen = new wchar_t[(screenWide * screenHigh)];
 		}
 		
 		// Screen vars
@@ -409,7 +409,7 @@ public:
 		}
 
 		// Add gameboard to the screen
-		wchar_t boardBg = '|';
+		wchar_t boardBg = '.';
 		for (int i = 0; i < screenTotalSize - 1; i++) {
 			int screenLine = i / screenWide;
 			int screenColunm = i - screenLine * screenWide;
@@ -604,16 +604,6 @@ int main() {
 	Screen screen(&gameState);
 	Input input(&gameState, &screen);
 	screen.Log("Game first state started.");
-
-
-
-	// Record start time
-	DEBUG(" ");
-	auto start = std::chrono::high_resolution_clock::now();
-	std::this_thread::sleep_for(std::chrono::milliseconds(200));
-	auto finish = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<double> elapsed = finish - start;
-	if (elapsed.count() > 0.2) { DEBUG("Cafe"); }
 
 
 	// Main gameloop
