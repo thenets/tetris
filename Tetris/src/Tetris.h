@@ -49,7 +49,6 @@ public:
 	// @cleanBoard : Reset all board fields to default state
 	void CleanBoard();
 
-
 	// Get tetromino shapes
 	static std::vector<std::vector<std::string>> GetTetrominoShapes();
 

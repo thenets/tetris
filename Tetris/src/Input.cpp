@@ -13,10 +13,10 @@ Input::Input(Tetris* gs, Screen* ss) {
 
 void Input::DebugCleanInputBuffer() {
 	// Pop each input from buffer
-	char out = PopInput();
+	char out = PopInputFromBuffer();
 	while (out != '#') {
 		std::cout << out;
-		out = PopInput();
+		out = PopInputFromBuffer();
 	}
 	std::cout << std::endl;
 }
@@ -31,31 +31,31 @@ void Input::WatchInputs() {
 	start = std::chrono::high_resolution_clock::now();
 
 	if (GetAsyncKeyState(VK_LEFT))
-		AddInput('l');
+		AddInputToBuffer('l');
 
 	if (GetAsyncKeyState(VK_RIGHT))
-		AddInput('r');
+		AddInputToBuffer('r');
 
 	if (GetAsyncKeyState(VK_UP))
-		AddInput('u');
+		AddInputToBuffer('u');
 
 	if (GetAsyncKeyState(VK_DOWN))
-		AddInput('d');
+		AddInputToBuffer('d');
 
 	if (GetAsyncKeyState(VK_SPACE))
-		AddInput('s');
+		AddInputToBuffer('s');
 
 	if (GetAsyncKeyState(VK_RETURN))
-		AddInput('t');
+		AddInputToBuffer('t');
 
 	if (GetAsyncKeyState(VK_ESCAPE)) {
-		AddInput('e');
+		AddInputToBuffer('e');
 		exit(0);
 	}
 }
 
 void Input::ProcessInputs() {
-	char input = PopInput();
+	char input = PopInputFromBuffer();
 	while (input != '#') {
 		switch (input) {
 
@@ -88,13 +88,13 @@ void Input::ProcessInputs() {
 		}
 
 		// Pop next input
-		input = PopInput();
+		input = PopInputFromBuffer();
 	}
 }
 
 // @AddInput : Add the input to the 'inputBuffer'
 // This buffer will be consumed during the next gameloop.
-void Input::AddInput(char input) {
+void Input::AddInputToBuffer(char input) {
 	if (inputBufferCursor < 9) {
 		inputBuffer[inputBufferCursor] = input;
 		inputBufferCursor++;
@@ -106,7 +106,7 @@ void Input::AddInput(char input) {
 //
 // @return next input
 // @return '#' if inutBuffer is empty
-char Input::PopInput() {
+char Input::PopInputFromBuffer() {
 	char out;
 	if (inputBufferCursor > 0) {
 		out = inputBuffer[0];

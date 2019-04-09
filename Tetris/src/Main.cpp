@@ -18,7 +18,7 @@ int main() {
 	// Main gameloop
 	screen.Log("Start gameloop.");
 	gameState.DebugBoard();
-	screen.EnableGameScreen();
+	screen.SwitchToGameScreen();
 
 	while (1) {
 		// Get inputs

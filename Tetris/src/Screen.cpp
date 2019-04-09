@@ -5,12 +5,6 @@
 #include "Tetris.h"
 #include "Screen.h"
 
-// -----------------------------------------------------------------
-// Screen
-// -----------------------------------------------------------------
-
-// @Screen constructor
-// Create new game screen.
 Screen::Screen(Tetris* gs) {
 	// Get game state
 	gameState = *gs;
@@ -29,14 +23,12 @@ Screen::Screen(Tetris* gs) {
 	screen[screenWide * screenHigh - 1] = '\0';
 }
 
-// @EnableGameScreen : Switch to the game screen
-void Screen::EnableGameScreen() {
+void Screen::SwitchToGameScreen() {
 	hScreenCurrent = hScreenGame;
 	SetConsoleActiveScreenBuffer(hScreenCurrent);
 }
 
-// @EnableConsoleScreen : Switch to the console debug screen
-void Screen::EnableConsoleScreen() {
+void Screen::SwitchToConsoleScreen() {
 	hScreenCurrent = hScreenConsole;
 	SetConsoleActiveScreenBuffer(hScreenCurrent);
 }
@@ -44,9 +36,9 @@ void Screen::EnableConsoleScreen() {
 // @ToggleScreen : Toggle between Console and Game screens
 void Screen::ToggleScreen() {
 	if (hScreenCurrent == hScreenConsole)
-		EnableGameScreen();
+		SwitchToGameScreen();
 	else
-		EnableConsoleScreen();
+		SwitchToConsoleScreen();
 }
 
 // @UpdateBoard : Update current board state and with overlays
@@ -134,7 +126,6 @@ void Screen::UpdateBoard() {
 	);
 }
 
-// @Log : Very simple log to the console
 void Screen::Log(const char x[]) {
 	HANDLE current = hScreenCurrent;
 	SetConsoleActiveScreenBuffer(hScreenConsole);

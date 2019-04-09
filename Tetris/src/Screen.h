@@ -18,24 +18,19 @@ public:
 	wchar_t* screen;
 	wchar_t* overlay;
 	
-	// @Screen constructor
-	// Create new game screen.
 	Screen() {};
 	Screen(Tetris* gs);
 
-	// @EnableGameScreen : Switch to the game screen
-	void EnableGameScreen();
+	void SwitchToGameScreen();
 
-	// @EnableConsoleScreen : Switch to the console debug screen
-	void EnableConsoleScreen();
+	void SwitchToConsoleScreen();
 
 	// @ToggleScreen : Toggle between Console and Game screens
 	void ToggleScreen();
 
-	// @UpdateBoard : Update current board state and with overlays
+	// @UpdateBoard : Update current board state including the overlays
 	void UpdateBoard();
 
-	// @Log : Very simple log to the console
 	void Log(const char x[]);
 };
 

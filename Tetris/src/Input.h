@@ -21,17 +21,14 @@ public:
 	void ProcessInputs();
 
 private:
-	// @AddInput : Add the input to the 'inputBuffer'
-	// This buffer will be consumed during the next gameloop.
-	void AddInput(char input);
+	void AddInputToBuffer(char input);
 
-	// @PopInput : Pop the next input.
-	// Shift inputBuffer to the leaf after pop.
+	// @PopInputFromBuffer : Pop the next input.
+	// Shift inputBuffer to the left after pop.
 	//
 	// @return next input
 	// @return '#' if inutBuffer is empty
-	char PopInput();
-
+	char PopInputFromBuffer();
 };
 
 #endif

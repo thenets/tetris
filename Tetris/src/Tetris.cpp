@@ -1,23 +1,13 @@
 // Tetris.cpp
 #include "pch.h"
 #include "Tetris.h"
-#include <Windows.h>
-#include <stdlib.h>
-#include <time.h>
-#include <iostream>
-#include <thread>
-#include <string>
-#include <vector>
-#include <chrono>
 #include "Screen.h"
 #include "Input.h"
+#include <iostream>
+#include <chrono>
 
 #define DEBUG(x) std::cout << x << std::endl;
 
-
-// -----------------------------------------------------------------
-// Tetris
-// -----------------------------------------------------------------
 std::vector<std::vector<std::string>> Tetris::GetTetrominoShapes() {
 	auto tetrominoShapes = {
 		// bar
