@@ -23,6 +23,11 @@ Screen::Screen(Tetris* gs) {
 	screen[screenWide * screenHigh - 1] = '\0';
 }
 
+Screen::~Screen() {
+	delete overlay;
+	delete screen;
+}
+
 void Screen::SwitchToGameScreen() {
 	hScreenCurrent = hScreenGame;
 	SetConsoleActiveScreenBuffer(hScreenCurrent);
@@ -57,6 +62,10 @@ void Screen::UpdateBoard() {
 	int newWide = csbi.srWindow.Right - csbi.srWindow.Left + 1;
 	if (newWide != screenWide) {
 		screenWide = newWide;
+
+		delete overlay;
+		delete screen;
+
 		overlay = new wchar_t[(screenWide * screenHigh)];
 		screen = new wchar_t[(screenWide * screenHigh)];
 	}

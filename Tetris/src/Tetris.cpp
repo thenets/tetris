@@ -71,6 +71,10 @@ Tetris::Tetris() {
 	CleanBoard();
 }
 
+Tetris::~Tetris() {
+	delete board;
+}
+
 // @debugBoard : Print current board state
 void Tetris::DebugBoard() {
 	// each line
@@ -120,7 +124,6 @@ void Tetris::UpdateTetrominoState() {
 
 	// Check if one or more lines are completed
 	CheckFilledLines();
-
 }
 
 void Tetris::CheckFilledLines() {
@@ -158,8 +161,6 @@ void Tetris::DeleteLineFromBoard(int lineToDelete) {
 	// Clean first line
 	for (int c = 0; c < b_wide; c++)
 		board[c] = ' ';
-
-
 }
 
 

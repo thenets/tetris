@@ -43,6 +43,8 @@ public:
 	// Create game board and prepare the initial game state.
 	Tetris();
 
+	~Tetris();
+
 	// @debugBoard : Print current board state
 	void DebugBoard();
 

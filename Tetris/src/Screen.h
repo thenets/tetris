@@ -21,6 +21,8 @@ public:
 	Screen() {};
 	Screen(Tetris* gs);
 
+	~Screen();
+
 	void SwitchToGameScreen();
 
 	void SwitchToConsoleScreen();
