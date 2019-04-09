@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _TETRIS_H_
+#define _TETRIS_H_
 
 #include <vector>
 #include <string>
@@ -80,3 +81,4 @@ public:
 
 };
 
+#endif

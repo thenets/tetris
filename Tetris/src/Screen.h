@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SCREEN_H_
+#define _SCREEN_H_
 
 #include <Windows.h>
 
@@ -37,3 +38,5 @@ public:
 	// @Log : Very simple log to the console
 	void Log(const char x[]);
 };
+
+#endif
