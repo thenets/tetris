@@ -52,7 +52,7 @@ void Screen::UpdateBoard() {
 	static auto start = std::chrono::high_resolution_clock::now();
 	auto finish = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> elapsed = finish - start;
-	if (elapsed.count() < 0.016)
+	if (elapsed.count() < 0.032)
 		return;
 	start = std::chrono::high_resolution_clock::now();
 
@@ -117,7 +117,6 @@ void Screen::UpdateBoard() {
 		}
 
 	}
-
 
 	// Add overlay to the screen
 	for (int i = 0; i < screenTotalSize - 1; i++) {

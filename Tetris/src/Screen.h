@@ -1,6 +1,7 @@
-#ifndef _SCREEN_H_
-#define _SCREEN_H_
+#pragma once
 
+#include <iostream>
+#include <chrono>
 #include <Windows.h>
 
 class Screen
@@ -35,5 +36,3 @@ public:
 
 	void Log(const char x[]);
 };
-
-#endif

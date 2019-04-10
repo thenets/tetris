@@ -1,5 +1,4 @@
-#ifndef _INPUT_H_
-#define _INPUT_H_
+#pragma once
 
 #include "Tetris.h"
 #include "Screen.h"
@@ -30,5 +29,3 @@ private:
 	// @return '#' if inutBuffer is empty
 	char PopInputFromBuffer();
 };
-
-#endif

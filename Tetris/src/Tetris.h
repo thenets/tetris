@@ -1,12 +1,8 @@
-#ifndef _TETRIS_H_
-#define _TETRIS_H_
+#pragma once
 
 #include <vector>
 #include <string>
 
-// -----------------------------------------------------------------
-// Tetrominos
-// -----------------------------------------------------------------
 struct Tetromino {
 	int x = 0;
 	int y = 2;
@@ -81,5 +77,3 @@ public:
 	void MoveToRight();
 
 };
-
-#endif
