@@ -9,7 +9,7 @@
 
 #define DEBUG(x) std::cout << x << std::endl;
 
-#if 1
+#if 0
 int main() {
 	// Main vars
 	Tetris gameState;

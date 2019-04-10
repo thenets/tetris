@@ -5,7 +5,6 @@
 #include <iostream>
 #include <chrono>
 
-
 Input::Input(Tetris* gs, Screen* ss) {
 	gameState = *gs;
 	screenState = *ss;
