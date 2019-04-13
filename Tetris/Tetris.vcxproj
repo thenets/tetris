@@ -109,6 +109,9 @@
     <ClCompile Include="src\Screen.cpp" />
     <ClCompile Include="src\Tetris.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\Basic.shader" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

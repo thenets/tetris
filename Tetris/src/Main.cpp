@@ -5,6 +5,8 @@
 #include "Input.h"
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
 
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -23,13 +25,52 @@ static void GLClearError() {
 }
 static bool GLLogCall(const char* function, const char* file, int line) {
 	while (GLenum error = glGetError()) {
-		std::cout << "[OpenGL Error] (" << error << "): " << function <<
+		std::cout << "[Error : OpenGL] (" << error << "): " << function <<
 			" " << file << ":" << line << std::endl;
 		return false;
 	}
 	return true;
 }
 
+
+// OpenGL get shaders from files
+struct ShaderProgramSource
+{
+	std::string VertexSource;
+	std::string FragmentSource;
+};
+static ShaderProgramSource ParseShader(const std::string& filepath) {
+	std::ifstream stream(filepath);
+
+	if (!stream.is_open())
+	{
+		std::cout << "[Error : ParseShader]: Shader '" << filepath << "' not found: " << std::endl;
+	}
+
+	enum class ShaderType
+	{
+		NONE = -1, VERTEX = 0, FRAGMENT = 1
+	};
+
+	std::string line;
+	std::stringstream ss[2];
+	ShaderType type = ShaderType::NONE;
+	while (getline(stream, line)) {
+		if (line.find("#shader") != std::string::npos)
+		{
+			if (line.find("vertex") != std::string::npos)
+				type = ShaderType::VERTEX;
+			else if (line.find("fragment") != std::string::npos)
+				type = ShaderType::FRAGMENT;
+		}
+		else 
+		{
+			ss[(int)type] << line << '\n';
+		}
+	}
+
+	return { ss[0].str(), ss[1].str() };
+}
 
 // OpenGL shader functions
 static unsigned int CompileShader(unsigned int type, const std::string& source) {
@@ -112,27 +153,10 @@ int main() {
 	glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
-	
-	std::string vertexShader =
-		"#version 330 core\n"
-		"\n"
-		"layout(location = 0) in vec4 position;\n"
-		"\n"
-		"void main()\n"
-		"{\n"
-		"	gl_Position = position;\n"
-		"}\n";
-	std::string fragmentShader =
-		"#version 330 core\n"
-		"\n"
-		"layout(location = 0) out vec4 color;\n"
-		"\n"
-		"void main()\n"
-		"{\n"
-		"	color = vec4(1.0, 0.3, 0.3, 1.0);\n"
-		"}\n";
 
-	unsigned int shader = CreateShader(vertexShader, fragmentShader);
+
+	ShaderProgramSource source = ParseShader("res/shaders/Basic.shader");
+	unsigned int shader = CreateShader(source.VertexSource, source.FragmentSource);
 	glUseProgram(shader);
 
 
@@ -142,8 +166,8 @@ int main() {
 		/* Render here */
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		// Draw the triangle
 		glDrawArrays(GL_TRIANGLES, 0, 3);
-		//GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
 
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
