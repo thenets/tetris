@@ -48,6 +48,9 @@
     <ClInclude Include="src\VertexBufferLayout.h">
       <Filter>module_Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Shader.h">
+      <Filter>module_Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tetris.cpp">
@@ -75,6 +78,9 @@
       <Filter>module_Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\VertexArray.cpp">
+      <Filter>module_Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shader.cpp">
       <Filter>module_Renderer</Filter>
     </ClCompile>
   </ItemGroup>
