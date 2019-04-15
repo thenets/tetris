@@ -122,7 +122,7 @@ int main() {
 	if (!glfwInit())
 		return -1;
 
-	window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+	window = glfwCreateWindow(640, 480, "Tetris Exodus", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -130,6 +130,9 @@ int main() {
 	}
 
 	glfwMakeContextCurrent(window);
+
+	// Syncronize refresh rate with monitor (v-sync)
+	glfwSwapInterval(1);
 
 	// Initialize GLEW
 	auto err = glewInit();
@@ -141,34 +144,59 @@ int main() {
 	printf("        OpenGL %s\n", glGetString(GL_VERSION));
 
 
-	// PLAYGROUND
-	float positions[6] = {
-		-0.5f,  -0.5f,
-		 0.0f,   0.5f,
-		 0.5f,  -0.5f
+	// vertex & buffer
+	float positions[] = {
+		-0.5f,  -0.5f, // 0
+		 0.5f,  -0.5f, // 1
+		 0.5f,   0.5f, // 2
+		-0.5f,   0.5f  // 3
 	};
 	unsigned int buffer;
-	glGenBuffers(1, &buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, buffer);
-	glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
+	GLCall(glGenBuffers(1, &buffer));
+	GLCall(glBindBuffer(GL_ARRAY_BUFFER, buffer));
+	GLCall(glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(float), positions, GL_STATIC_DRAW));
+	
+	GLCall(glEnableVertexAttribArray(0));
+	GLCall(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0));
+
+	// ibo : Index Buffer Object
+	unsigned int indices[] = {
+		0, 1, 2,
+		2, 3, 0
+	};
+	unsigned int ibo;
+	GLCall(glGenBuffers(1, &ibo));
+	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo));
+	GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW));
+	//glEnableVertexAttribArray(0);
+	//glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
 
 
 	ShaderProgramSource source = ParseShader("res/shaders/Basic.shader");
 	unsigned int shader = CreateShader(source.VertexSource, source.FragmentSource);
-	glUseProgram(shader);
+	GLCall(glUseProgram(shader));
 
+	int location = glGetUniformLocation(shader, "u_Color");
+	ASSERT(location != -1);
+	GLCall(glUniform4f(location, 0.2f, 0.3f, 0.8f, 1.0f));
 
+	float r = 0.0f;
+	float increment = 0.05f;
 	// Loop until the user closes the window
 	while (!glfwWindowShouldClose(window))
 	{
 		/* Render here */
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		// Draw the triangle
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-
+		// Draw the triangle from indices
+		GLCall(glUniform4f(location, r, r-1.0f, 0.8f, 1.0f));
+		GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+		if (r > 1.0f)
+			increment = -0.05f;
+		else if (r < 0.0f)
+			increment = 0.05f;
+		r += increment;
+			   
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
 
