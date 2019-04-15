@@ -100,7 +100,9 @@
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\Screen.h" />
     <ClInclude Include="src\Tetris.h" />
+    <ClInclude Include="src\VertexArray.h" />
     <ClInclude Include="src\VertexBuffer.h" />
+    <ClInclude Include="src\VertexBufferLayout.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\IndexBuffer.cpp" />
@@ -113,6 +115,7 @@
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\Screen.cpp" />
     <ClCompile Include="src\Tetris.cpp" />
+    <ClCompile Include="src\VertexArray.cpp" />
     <ClCompile Include="src\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>

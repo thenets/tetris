@@ -1,23 +1,22 @@
 #include "pch.h"
 
-#include "Tetris.h"
-#include "Screen.h"
-#include "Input.h"
-
-#include "Renderer.h"
-#include "IndexBuffer.h"
-#include "VertexBuffer.h"
+#define DEBUG(x) std::cout << x << std::endl;
 
 #include <iostream>
 #include <fstream>
 #include <sstream>
 
-// #include <GL/glew.h>
+
+// OPENGL PLAYGROUND
+#define RUN_PLAYGROUND 1
+
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#define DEBUG(x) std::cout << x << std::endl;
-
-#define RUN_PLAYGROUND 1
+#include "Renderer.h"
+#include "IndexBuffer.h"
+#include "VertexBuffer.h"
+#include "VertexArray.h"
 
 
 
@@ -136,11 +135,7 @@ int main() {
 	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 	printf("        OpenGL %s\n", glGetString(GL_VERSION));
 
-	// Create the 'vao' : Vertex Array Object
-	// compatibility with opengl 3.3.0 core
-	unsigned int vao;
-	GLCall(glGenVertexArrays(1, &vao));
-	GLCall(glBindVertexArray(vao));
+	
 
 	{
 		// vb : Vertex Buffer
@@ -150,8 +145,14 @@ int main() {
 			 0.5f,   0.5f, // 2
 			-0.5f,   0.5f  // 3
 		};
+
+		VertexArray va;
 		VertexBuffer vb(positions, 4 * 2 * sizeof(float));
 
+		VertexBufferLayout layout;
+		layout.Push<float>(2);
+		va.AddBuffer(vb, layout);
+		
 		GLCall(glEnableVertexAttribArray(0));
 		GLCall(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0));
 
@@ -170,6 +171,11 @@ int main() {
 		ASSERT(location != -1);
 		GLCall(glUniform4f(location, 0.2f, 0.3f, 0.8f, 1.0f));
 
+		va.Unbind();
+		GLCall(glUseProgram(0));
+		GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+
 		float r = 0.0f;
 		float increment = 0.05f;
 		// Loop until the user closes the window
@@ -181,8 +187,12 @@ int main() {
 			// Draw the triangle from indices
 			GLCall(glUseProgram(shader));
 			GLCall(glUniform4f(location, r, r - 1.0f, 0.8f, 1.0f));
+
+			va.Bind();
 			ib.Bind();
+
 			GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+
 			if (r > 1.0f)
 				increment = -0.05f;
 			else if (r < 0.0f)
@@ -208,7 +218,13 @@ int main() {
 
 
 
+// TETRIS MAIN CODE
 #else
+#include "Tetris.h"
+#include "Screen.h"
+#include "Input.h"
+
+
 int main() {
 	// Main vars
 	Tetris gameState;

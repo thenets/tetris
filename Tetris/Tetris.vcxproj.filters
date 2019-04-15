@@ -16,6 +16,9 @@
     <Filter Include="Resource Files\Shaders">
       <UniqueIdentifier>{ce04ae48-334e-47ec-8caf-618dea75a9cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="module_Renderer">
+      <UniqueIdentifier>{b23912fa-92cd-4cbb-9e2d-1eacd127cfd2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Tetris.h">
@@ -30,14 +33,20 @@
     <ClInclude Include="src\Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\VertexBuffer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Renderer.h">
+      <Filter>module_Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\IndexBuffer.h">
-      <Filter>Header Files</Filter>
+      <Filter>module_Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\VertexBuffer.h">
+      <Filter>module_Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VertexArray.h">
+      <Filter>module_Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VertexBufferLayout.h">
+      <Filter>module_Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -57,13 +66,16 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\VertexBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\IndexBuffer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>module_Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>module_Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IndexBuffer.cpp">
+      <Filter>module_Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VertexArray.cpp">
+      <Filter>module_Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
