@@ -1,98 +1,109 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="vendor">
+      <UniqueIdentifier>{68a7c16b-7556-487f-8add-c5dd4e99548b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
+    <Filter Include="resources">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Resource Files\Shaders">
+    <Filter Include="resources\Shaders">
       <UniqueIdentifier>{ce04ae48-334e-47ec-8caf-618dea75a9cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="module_Renderer">
+    <Filter Include="main">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="vendor\stb_image">
+      <UniqueIdentifier>{cb1a9533-6d40-44f8-b1db-bcf4222f4d01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module_renderer">
       <UniqueIdentifier>{b23912fa-92cd-4cbb-9e2d-1eacd127cfd2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Tetris.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\pch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Screen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Input.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Renderer.h">
-      <Filter>module_Renderer</Filter>
+      <Filter>module_renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\IndexBuffer.h">
-      <Filter>module_Renderer</Filter>
+      <Filter>module_renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\VertexBuffer.h">
-      <Filter>module_Renderer</Filter>
+      <Filter>module_renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\VertexArray.h">
-      <Filter>module_Renderer</Filter>
+      <Filter>module_renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\VertexBufferLayout.h">
-      <Filter>module_Renderer</Filter>
+      <Filter>module_renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Shader.h">
-      <Filter>module_Renderer</Filter>
+      <Filter>module_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tetris.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Input.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pch.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Screen.h">
+      <Filter>main</Filter>
     </ClInclude>
     <ClInclude Include="src\std_image.h">
-      <Filter>module_Renderer</Filter>
+      <Filter>vendor\stb_image</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Texture.h">
+      <Filter>module_renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Tetris.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>main</Filter>
     </ClCompile>
     <ClCompile Include="src\pch.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>main</Filter>
     </ClCompile>
     <ClCompile Include="src\Screen.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>main</Filter>
     </ClCompile>
     <ClCompile Include="src\Main.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>main</Filter>
     </ClCompile>
     <ClCompile Include="src\Input.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>main</Filter>
     </ClCompile>
     <ClCompile Include="src\VertexBuffer.cpp">
-      <Filter>module_Renderer</Filter>
+      <Filter>module_renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer.cpp">
-      <Filter>module_Renderer</Filter>
+      <Filter>module_renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\IndexBuffer.cpp">
-      <Filter>module_Renderer</Filter>
+      <Filter>module_renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\VertexArray.cpp">
-      <Filter>module_Renderer</Filter>
+      <Filter>module_renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Shader.cpp">
-      <Filter>module_Renderer</Filter>
+      <Filter>module_renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\stb_image.cpp">
-      <Filter>module_Renderer</Filter>
+      <Filter>vendor\stb_image</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texture.cpp">
+      <Filter>module_renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader">
-      <Filter>Resource Files\Shaders</Filter>
+      <Filter>resources\Shaders</Filter>
+    </None>
+    <None Include="res\shaders\Color.shader">
+      <Filter>resources\Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>
