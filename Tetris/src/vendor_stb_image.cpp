@@ -2,4 +2,4 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 
-#include "std_image.h"
+#include "vendor_stb_image.h"
