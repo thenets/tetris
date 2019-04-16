@@ -2,27 +2,19 @@
 
 #define DEBUG(x) std::cout << x << std::endl;
 
+#include "Renderer.h"
+#include "IndexBuffer.h"
+#include "VertexBuffer.h"
+#include "VertexBufferLayout.h"
+#include "VertexArray.h"
+#include "Shader.h"
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
 
-
 // OPENGL PLAYGROUND
 #define RUN_PLAYGROUND 1
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include "Renderer.h"
-#include "IndexBuffer.h"
-#include "VertexBuffer.h"
-#include "VertexArray.h"
-#include "Shader.h"
-
-
-
-// OpenGL get shaders from files
-
 
 #if RUN_PLAYGROUND
 int main() {
@@ -58,7 +50,6 @@ int main() {
 	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 	printf("        OpenGL %s\n", glGetString(GL_VERSION));
 
-	
 
 	{
 		// vb : Vertex Buffer
@@ -76,8 +67,8 @@ int main() {
 		layout.Push<float>(2);
 		va.AddBuffer(vb, layout);
 		
-		GLCall(glEnableVertexAttribArray(0));
-		GLCall(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0));
+		//GLCall(glEnableVertexAttribArray(0));
+		//GLCall(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0));
 
 		// ib : Index Buffer Object
 		unsigned int indices[] = {
@@ -94,15 +85,17 @@ int main() {
 		va.Unbind();
 		shader.Unbind();
 		vb.Unbind();
-		ib.Unbind();		
+		ib.Unbind();	
+
+		Renderer renderer;
 
 		float r = 0.0f;
-		float increment = 0.05f;
+		float increment = 0.20f;
 		// Loop until the user closes the window
 		while (!glfwWindowShouldClose(window))
 		{
 			/* Render here */
-			glClear(GL_COLOR_BUFFER_BIT);
+			renderer.Clear();
 
 			// Draw the triangle from indices
 			shader.Bind();
@@ -111,12 +104,12 @@ int main() {
 			va.Bind();
 			ib.Bind();
 
-			GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+			renderer.Draw(va, ib, shader);
 
 			if (r > 1.0f)
 				increment = -0.05f;
 			else if (r < 0.0f)
-				increment = 0.05f;
+				increment = 0.18f;
 			r += increment;
 
 			/* Swap front and back buffers */

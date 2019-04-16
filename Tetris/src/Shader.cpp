@@ -1,12 +1,12 @@
 #include "pch.h"
 
+#include "Renderer.h"
 #include "Shader.h"
 
 #include <iostream>
 #include <fstream>
 #include <sstream>
 
-#include "Renderer.h"
 
 
 Shader::Shader(const std::string& filepath)
