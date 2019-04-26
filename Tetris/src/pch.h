@@ -10,6 +10,12 @@
 #define PCH_H
 
 // TODO: add headers that you want to pre-compile here
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <math.h>
+
 #include "Renderer.h"
 #include "VertexArray.h"
 
